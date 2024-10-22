@@ -32,8 +32,10 @@ python2 -m pip install docutils jinja2 pyyaml
 ```
 
 How to compile:
-1. Start by executing make command in MSYS2 MINGW32 mode in the project directory
-2. Execute make command in Windows command prompt (cmd) in the same directory
-3. Now alternate between executing make in MINGW64 mode and MINGW32 mode until compilation is done (make shows "Nothing to be done for 'all'".)
+1. Start by executing `mingw32-make` command on Windows command prompt (cmd) in the project directory
+2. Execute `make` on MSYS2 MINGW64 in the same directory
+3. Execute `make` on MSYS2 MINGW32, then again on MSYS2 MINGW64
+
+The binaries can then be found in `./bin/` folder.
 
 Have fun!
