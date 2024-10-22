@@ -47,6 +47,12 @@ static wchar_t g_log_apiminer_pipename[MAX_PATH];
 static HANDLE g_log_apiminer_handle;
 char g_apiminer_monitor_module_path[MAX_PATH];
 
+//FILETIME time_log_start;
+//long long timestamp_log_start;
+LARGE_INTEGER timestamp_log_start;
+LARGE_INTEGER timer_freq;
+double timer_period;
+
 #if DEBUG
 static wchar_t g_debug_filepath[MAX_PATH];
 static HANDLE g_debug_handle;
@@ -480,8 +486,9 @@ void log_api(uint32_t index, int is_success, uintptr_t return_value,
     char tmp_str_buf[1024];
     char *argname;
 
-    FILETIME st_la;
-    GetSystemTimeAsFileTime(&st_la);
+    LARGE_INTEGER timestamp_call_li;
+    QueryPerformanceCounter(&timestamp_call_li);
+    long long timestamp_call = (long long) ((timestamp_call_li.QuadPart - timestamp_log_start.QuadPart) * timer_period);
 
     memset(&raw_buf, 0, sizeof(raw_buf));
 
@@ -495,8 +502,8 @@ void log_api(uint32_t index, int is_success, uintptr_t return_value,
     EnterCriticalSection(&g_mutex);
 
     _snprintf_s(tmp_str_buf, sizeof(tmp_str_buf)/sizeof(tmp_str_buf[0]), _TRUNCATE,
-                "[%llu] <%s>-<ret %d=0x%p> %s(",
-                ((long long) st_la.dwHighDateTime << 32) + st_la.dwLowDateTime, sig_category(index), return_value, return_value, sig_apiname(index));
+                "%llu.%07llu;%s;%d;%s;",
+                timestamp_call/10000000, timestamp_call%10000000, sig_category(index), return_value, sig_apiname(index));
     raw_buf_add(&raw_buf, (uint8_t *)tmp_str_buf, strlen(tmp_str_buf));
 
     if(g_api_init[index] == 0) {
@@ -798,7 +805,7 @@ void log_api(uint32_t index, int is_success, uintptr_t return_value,
         raw_buf.offset -= 2;
     }
     _snprintf_s(tmp_str_buf, sizeof(tmp_str_buf)/sizeof(tmp_str_buf[0]), _TRUNCATE,
-                ")\r\n", sig_category(index), sig_apiname(index));
+                "\r\n", sig_category(index), sig_apiname(index));
     raw_buf_add(&raw_buf, (uint8_t *)tmp_str_buf, strlen(tmp_str_buf));
     log_apiminer_raw(raw_buf.buf, raw_buf.offset);
 }
@@ -1053,9 +1060,9 @@ void log_init(const char *pipe_name, int track)
 
     char new_logpipe[MAX_PATH];
     char new_logpipe2[MAX_PATH];
-    our_snprintf(new_logpipe, MAX_PATH, "%s/apiminer_traces.%d.txt",
+    our_snprintf(new_logpipe, MAX_PATH, "%s/apiminer_traces.%d.csv",
                  pipe_name, GetCurrentProcessId());
-    our_snprintf(new_logpipe2, MAX_PATH, "%s/apiminer_traces.%d.pid_%d.txt",
+    our_snprintf(new_logpipe2, MAX_PATH, "%s/apiminer_traces.%d.pid_%d.csv",
                  pipe_name, GetTickCount(), GetCurrentProcessId());
     pipe_name = new_logpipe;
     wcsncpyA(g_log_pipename, pipe_name, MAX_PATH);
@@ -1063,6 +1070,12 @@ void log_init(const char *pipe_name, int track)
     wcsncpyA(g_log_apiminer_pipename, pipe_name, MAX_PATH);
 
     open_handles();
+
+    /* inserted 22/10/'24 */
+    QueryPerformanceFrequency(&timer_freq); 
+    timer_period = (double) 10000000 / timer_freq.QuadPart;
+    QueryPerformanceCounter(&timestamp_log_start);
+    /**/
 
     char header[64]; uint32_t process_identifier = get_current_process_id();
     our_snprintf(header, sizeof(header), "BSON %d\n", process_identifier);
