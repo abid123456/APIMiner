@@ -472,13 +472,17 @@ void log_apiminer_raw(uint8_t *buf, uint32_t len)
 
 
 void log_api(uint32_t index, int is_success, uintptr_t return_value,
-    uint64_t hash, last_error_t *lasterr, ...)
+    uint64_t hash, last_error_t *lasterr, ...) // edited 22/10/'24
 {
 
     va_list args; char idx[4];
     raw_buf_t raw_buf;
     char tmp_str_buf[1024];
     char *argname;
+
+    FILETIME st_la;
+    GetSystemTimeAsFileTime(&st_la);
+
     memset(&raw_buf, 0, sizeof(raw_buf));
 
     // We haven't started logging yet.
@@ -491,8 +495,8 @@ void log_api(uint32_t index, int is_success, uintptr_t return_value,
     EnterCriticalSection(&g_mutex);
 
     _snprintf_s(tmp_str_buf, sizeof(tmp_str_buf)/sizeof(tmp_str_buf[0]), _TRUNCATE,
-                "<%s>-<%d,0x%p> %s(",
-                sig_category(index), return_value, return_value, sig_apiname(index));
+                "[%llu] <%s>-<ret %d=0x%p> %s(",
+                ((long long) st_la.dwHighDateTime << 32) + st_la.dwLowDateTime, sig_category(index), return_value, return_value, sig_apiname(index));
     raw_buf_add(&raw_buf, (uint8_t *)tmp_str_buf, strlen(tmp_str_buf));
 
     if(g_api_init[index] == 0) {
