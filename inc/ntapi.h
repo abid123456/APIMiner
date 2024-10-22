@@ -474,7 +474,7 @@ typedef struct _FILE_FS_VOLUME_INFORMATION {
     WCHAR         VolumeLabel[1];
 } FILE_FS_VOLUME_INFORMATION, *PFILE_FS_VOLUME_INFORMATION;
 
-typedef enum _FILE_INFO_BY_HANDLE_CLASS {
+/** typedef enum _FILE_INFO_BY_HANDLE_CLASS {
     FileBasicInfo                   = 0,
     FileStandardInfo                = 1,
     FileNameInfo                    = 2,
@@ -497,7 +497,14 @@ typedef enum _FILE_INFO_BY_HANDLE_CLASS {
     FileIdExtdDirectoryInfo         = 19,
     FileIdExtdDirectoryRestartInfo  = 20,
     MaximumFileInfoByHandlesClass
-} FILE_INFO_BY_HANDLE_CLASS, *PFILE_INFO_BY_HANDLE_CLASS;
+} FILE_INFO_BY_HANDLE_CLASS, *PFILE_INFO_BY_HANDLE_CLASS;  (edited 22/10/2024) **/
+enum _FILE_INFO_BY_HANDLE_CLASS_2 {
+    FileStorageInfo                 = 16,
+    FileAlignmentInfo               = 17,
+    FileIdInfo                      = 18,
+    FileIdExtdDirectoryInfo         = 19,
+    FileIdExtdDirectoryRestartInfo  = 20
+};
 
 typedef enum _SYSTEM_INFORMATION_CLASS {
     SystemBasicInformation = 0,
@@ -709,14 +716,14 @@ typedef VOID (CALLBACK LDR_DLL_NOTIFICATION_FUNCTION)(
     const LDR_DLL_NOTIFICATION_DATA *NotificationData,
     VOID *Context);
 
-typedef enum _TASKDIALOG_COMMON_BUTTON_FLAGS {
+/* typedef enum _TASKDIALOG_COMMON_BUTTON_FLAGS {
     TDCBF_OK_BUTTON         = 0x0001,
     TDCBF_YES_BUTTON        = 0x0002,
     TDCBF_NO_BUTTON         = 0x0004,
     TDCBF_CANCEL_BUTTON     = 0x0008,
     TDCBF_RETRY_BUTTON      = 0x0010,
     TDCBF_CLOSE_BUTTON      = 0x0020
-} TASKDIALOG_COMMON_BUTTON_FLAGS;
+} TASKDIALOG_COMMON_BUTTON_FLAGS;  (edited 22/10/2024) */
 
 typedef enum _SHUTDOWN_ACTION {
     ShutdownNoReboot,
