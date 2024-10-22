@@ -11,7 +11,23 @@
 APIMiner v1.0.0
 API Logger for Windows Executables
 
-Anoop Saldanha, Abhijit Mohanta
+Original developers: Anoop Saldanha, Abhijit Mohanta
+Forker: Abid
 
-The latest release - https://github.com/poona/APIMiner/releases/download/1.0.0/release-v1.0.0.zip
+Prerequisites:
+- Windows x64 machine with MSYS2, MinGW32, MinGW64, and Python 2 installed
+- Add MinGW binary and library directories to PATH
+- Install pip by doing
+    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
+    python2 get-pip.py
+- Install setuptools in MSYS2 by doing
+    pacman -S mingw-w64-x86_64-python-setuptools
+- Install docutils, jinja2, and pyyaml (in MSYS2 MINGW64 mode):
+    python2 -m pip install docutils jinja2 pyyaml
 
+How to compile:
+1. Start by execute make command in MSYS2 MINGW32 mode in the project directory
+2. Execute make command in Windows command prompt (cmd) in the same directory
+3. Now alternate between executing make in MINGW64 mode and MINGW32 mode until compilation is done (make shows "Nothing to be done for 'all'".)
+
+Have fun!
