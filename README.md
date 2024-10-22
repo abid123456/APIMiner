@@ -8,10 +8,10 @@
      d8888888888 888         888   888   "   888 888 888  888 Y8b.     888
     d88P     888 888       8888888 888       888 888 888  888  "Y8888  888
 
-APIMiner v1.0.0
-API Logger for Windows Executables
+APIMiner v1.0.0: API Logger for Windows Executables
 
 Original developers: Anoop Saldanha, Abhijit Mohanta
+
 Forker: abid123456
 
 Prerequisites:
@@ -33,8 +33,9 @@ python2 -m pip install docutils jinja2 pyyaml
 
 How to compile:
 1. Start by executing `mingw32-make` command on Windows command prompt (cmd) in the project directory
-2. Execute `make` on MSYS2 MINGW64 in the same directory
-3. Execute `make` on MSYS2 MINGW32, then again on MSYS2 MINGW64
+2. In the same directory, execute `make` on MSYS2 MINGW64
+3. Now execute `make` on MSYS2 MINGW32
+4. Repeat steps 1 and 2 once
 
 The binaries can then be found in `./bin/` folder.
 
