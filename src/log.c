@@ -1060,9 +1060,9 @@ void log_init(const char *pipe_name, int track)
 
     char new_logpipe[MAX_PATH];
     char new_logpipe2[MAX_PATH];
-    our_snprintf(new_logpipe, MAX_PATH, "%s/apiminer_traces.%d.exe",
+    our_snprintf(new_logpipe, MAX_PATH, "%s/apiminer_traces.%d.dll",
                  pipe_name, GetCurrentProcessId());
-    our_snprintf(new_logpipe2, MAX_PATH, "%s/apiminer_traces.%d.pid_%d.exe",
+    our_snprintf(new_logpipe2, MAX_PATH, "%s/apiminer_traces.%d.pid_%d.dll",
                  pipe_name, GetTickCount(), GetCurrentProcessId());
     pipe_name = new_logpipe;
     wcsncpyA(g_log_pipename, pipe_name, MAX_PATH);
