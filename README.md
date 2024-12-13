@@ -31,7 +31,8 @@ pacman -S mingw-w64-x86_64-python-setuptools
 python2 -m pip install docutils jinja2 pyyaml
 ```
 
-How to compile:
+## How to compile:
+### Windows
 1. Start by executing `mingw32-make` command on Windows command prompt (cmd) in the project directory
 2. In the same directory, execute `make` on MSYS2 MINGW64
 3. Now execute `make` on MSYS2 MINGW32
@@ -40,3 +41,15 @@ How to compile:
 The binaries can then be found in `./bin/` folder.
 
 Have fun!
+
+### Linux (Debian/Ubuntu)
+Make sure you have python2 installed
+
+1. Install the cross compiler
+```bash
+sudo apt install gcc-mingw-w64-i686 gcc-mingw-w64-x86-64
+```
+2. Now build the program 
+```bash
+make
+```
