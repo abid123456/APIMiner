@@ -44,7 +44,7 @@ NTSTATUS(__stdcall* Real_NtSetEvent)(
 
 VOID(__stdcall* Real_RtlInitUnicodeString)(
     PUNICODE_STRING         DestinationString,
-    __drv_aliasesMem PCWSTR SourceString);
+    PCWSTR SourceString);
 
 NTSTATUS status = { 0 };
 IO_STATUS_BLOCK ioStatusBlock = { 0 };
