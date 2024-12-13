@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <security.h>
 
 typedef LONG NTSTATUS;
-typedef void *PIO_APC_ROUTINE;
+typedef void* PIO_APC_ROUTINE;
 
 #define NT_SUCCESS(Status) ((NTSTATUS)(Status) >= 0)
 
@@ -36,7 +36,7 @@ typedef struct _STRING {
     USHORT Length;
     USHORT MaximumLength;
     PCHAR  Buffer;
-} ANSI_STRING, *PANSI_STRING;
+} ANSI_STRING, * PANSI_STRING;
 
 typedef struct _IO_STATUS_BLOCK {
     union {
@@ -44,7 +44,7 @@ typedef struct _IO_STATUS_BLOCK {
         PVOID    Pointer;
     } _;
     ULONG_PTR Information;
-} IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;
+} IO_STATUS_BLOCK, * PIO_STATUS_BLOCK;
 
 typedef struct _OBJECT_ATTRIBUTES {
     ULONG           Length;
@@ -53,9 +53,9 @@ typedef struct _OBJECT_ATTRIBUTES {
     ULONG           Attributes;
     PVOID           SecurityDescriptor;
     PVOID           SecurityQualityOfService;
-} OBJECT_ATTRIBUTES, *POBJECT_ATTRIBUTES;
+} OBJECT_ATTRIBUTES, * POBJECT_ATTRIBUTES;
 
-typedef void *HINTERNET;
+typedef void* HINTERNET;
 
 typedef struct addrinfo {
     int              ai_flags;
@@ -63,10 +63,10 @@ typedef struct addrinfo {
     int              ai_socktype;
     int              ai_protocol;
     size_t           ai_addrlen;
-    char             *ai_canonname;
-    struct sockaddr  *ai_addr;
-    struct addrinfo  *ai_next;
-} ADDRINFOA, *PADDRINFOA;
+    char* ai_canonname;
+    struct sockaddr* ai_addr;
+    struct addrinfo* ai_next;
+} ADDRINFOA, * PADDRINFOA;
 
 typedef struct addrinfoW {
     int               ai_flags;
@@ -75,29 +75,29 @@ typedef struct addrinfoW {
     int               ai_protocol;
     size_t            ai_addrlen;
     PWSTR             ai_canonname;
-    struct sockaddr  *ai_addr;
-    struct addrinfoW *ai_next;
-} ADDRINFOW, *PADDRINFOW;
+    struct sockaddr* ai_addr;
+    struct addrinfoW* ai_next;
+} ADDRINFOW, * PADDRINFOW;
 
 typedef enum _KEY_INFORMATION_CLASS {
-    KeyBasicInformation            = 0,
-    KeyNodeInformation             = 1,
-    KeyFullInformation             = 2,
-    KeyNameInformation             = 3,
-    KeyCachedInformation           = 4,
-    KeyFlagsInformation            = 5,
-    KeyVirtualizationInformation   = 6,
-    KeyHandleTagsInformation       = 7,
-    MaxKeyInfoClass                = 8
+    KeyBasicInformation = 0,
+    KeyNodeInformation = 1,
+    KeyFullInformation = 2,
+    KeyNameInformation = 3,
+    KeyCachedInformation = 4,
+    KeyFlagsInformation = 5,
+    KeyVirtualizationInformation = 6,
+    KeyHandleTagsInformation = 7,
+    MaxKeyInfoClass = 8
 } KEY_INFORMATION_CLASS;
 
 typedef enum _KEY_VALUE_INFORMATION_CLASS {
-    KeyValueBasicInformation            = 0,
-    KeyValueFullInformation             = 1,
-    KeyValuePartialInformation          = 2,
-    KeyValueFullInformationAlign64      = 3,
-    KeyValuePartialInformationAlign64   = 4,
-    MaxKeyValueInfoClass                = 5
+    KeyValueBasicInformation = 0,
+    KeyValueFullInformation = 1,
+    KeyValuePartialInformation = 2,
+    KeyValueFullInformationAlign64 = 3,
+    KeyValuePartialInformationAlign64 = 4,
+    MaxKeyValueInfoClass = 5
 } KEY_VALUE_INFORMATION_CLASS;
 
 typedef struct _KEY_VALUE_BASIC_INFORMATION {
@@ -105,7 +105,7 @@ typedef struct _KEY_VALUE_BASIC_INFORMATION {
     ULONG Type;
     ULONG NameLength;
     WCHAR Name[1];
-} KEY_VALUE_BASIC_INFORMATION, *PKEY_VALUE_BASIC_INFORMATION;
+} KEY_VALUE_BASIC_INFORMATION, * PKEY_VALUE_BASIC_INFORMATION;
 
 typedef struct _KEY_VALUE_FULL_INFORMATION {
     ULONG TitleIndex;
@@ -114,25 +114,25 @@ typedef struct _KEY_VALUE_FULL_INFORMATION {
     ULONG DataLength;
     ULONG NameLength;
     WCHAR Name[1];
-} KEY_VALUE_FULL_INFORMATION, *PKEY_VALUE_FULL_INFORMATION;
+} KEY_VALUE_FULL_INFORMATION, * PKEY_VALUE_FULL_INFORMATION;
 
 typedef struct _KEY_VALUE_PARTIAL_INFORMATION {
     ULONG TitleIndex;
     ULONG Type;
     ULONG DataLength;
     UCHAR Data[1];
-} KEY_VALUE_PARTIAL_INFORMATION, *PKEY_VALUE_PARTIAL_INFORMATION;
+} KEY_VALUE_PARTIAL_INFORMATION, * PKEY_VALUE_PARTIAL_INFORMATION;
 
 typedef struct _KEY_VALUE_ENTRY {
     PUNICODE_STRING    ValueName;
     ULONG        DataLength;
     ULONG        DataOffset;
     ULONG        Type;
-} KEY_VALUE_ENTRY, *PKEY_VALUE_ENTRY;
+} KEY_VALUE_ENTRY, * PKEY_VALUE_ENTRY;
 
 typedef struct _PROCESS_BASIC_INFORMATION {
     PVOID Reserved1;
-    void *PebBaseAddress;
+    void* PebBaseAddress;
     PVOID Reserved2[2];
     ULONG_PTR UniqueProcessId;
     PVOID InheritedFromUniqueProcessId;
@@ -141,7 +141,7 @@ typedef struct _PROCESS_BASIC_INFORMATION {
 typedef struct _CLIENT_ID {
     PVOID UniqueProcess;
     PVOID UniqueThread;
-} CLIENT_ID, *PCLIENT_ID;
+} CLIENT_ID, * PCLIENT_ID;
 
 typedef ULONG_PTR KAFFINITY;
 typedef LONG KPRIORITY;
@@ -153,7 +153,7 @@ typedef struct _THREAD_BASIC_INFORMATION {
     KAFFINITY AffinityMask;
     KPRIORITY Priority;
     KPRIORITY BasePriority;
-} THREAD_BASIC_INFORMATION, *PTHREAD_BASIC_INFORMATION;
+} THREAD_BASIC_INFORMATION, * PTHREAD_BASIC_INFORMATION;
 
 typedef struct _INITIAL_TEB {
     PVOID StackBase;
@@ -161,7 +161,7 @@ typedef struct _INITIAL_TEB {
     PVOID StackCommit;
     PVOID StackCommitMax;
     PVOID StackReserved;
-} INITIAL_TEB, *PINITIAL_TEB;
+} INITIAL_TEB, * PINITIAL_TEB;
 
 typedef enum _FILE_INFORMATION_CLASS {
     FileDirectoryInformation = 1,
@@ -220,7 +220,7 @@ typedef enum _FILE_INFORMATION_CLASS {
     FileStandardLinkInformation,
     FileRemoteProtocolInformation,
     FileMaximumInformation
-} FILE_INFORMATION_CLASS, *PFILE_INFORMATION_CLASS;
+} FILE_INFORMATION_CLASS, * PFILE_INFORMATION_CLASS;
 
 #define STATUS_ACCESS_DENIED ((NTSTATUS) 0xc0000022)
 
@@ -230,21 +230,21 @@ typedef struct _FILE_BASIC_INFORMATION {
     LARGE_INTEGER LastWriteTime;
     LARGE_INTEGER ChangeTime;
     ULONG FileAttributes;
-} FILE_BASIC_INFORMATION, *PFILE_BASIC_INFORMATION;
+} FILE_BASIC_INFORMATION, * PFILE_BASIC_INFORMATION;
 
 typedef struct _FILE_RENAME_INFORMATION {
     BOOLEAN ReplaceIfExists;
     HANDLE RootDirectory;
     ULONG FileNameLength;
     WCHAR FileName[1];
-} FILE_RENAME_INFORMATION, *PFILE_RENAME_INFORMATION;
+} FILE_RENAME_INFORMATION, * PFILE_RENAME_INFORMATION;
 
 typedef struct _RTL_DRIVE_LETTER_CURDIR {
     USHORT Flags;
     USHORT Length;
     ULONG TimeStamp;
     UNICODE_STRING DosPath;
-} RTL_DRIVE_LETTER_CURDIR, *PRTL_DRIVE_LETTER_CURDIR;
+} RTL_DRIVE_LETTER_CURDIR, * PRTL_DRIVE_LETTER_CURDIR;
 
 typedef struct _RTL_USER_PROCESS_PARAMETERS {
     ULONG                   MaximumLength;
@@ -276,11 +276,11 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS {
     UNICODE_STRING          ShellInfo;
     UNICODE_STRING          RuntimeData;
     RTL_DRIVE_LETTER_CURDIR DLCurrentDirectory[0x20];
-} RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
+} RTL_USER_PROCESS_PARAMETERS, * PRTL_USER_PROCESS_PARAMETERS;
 
-typedef void *PPS_CREATE_INFO, *PPS_ATTRIBUTE_LIST;
+typedef void* PPS_CREATE_INFO, * PPS_ATTRIBUTE_LIST;
 
-typedef void *PVOID, **PPVOID;
+typedef void* PVOID, ** PPVOID;
 
 typedef struct _PEB_LDR_DATA {
     ULONG Length;
@@ -289,7 +289,7 @@ typedef struct _PEB_LDR_DATA {
     LIST_ENTRY InLoadOrderModuleList;
     LIST_ENTRY InMemoryOrderModuleList;
     LIST_ENTRY InInitializationOrderModuleList;
-} PEB_LDR_DATA, *PPEB_LDR_DATA;
+} PEB_LDR_DATA, * PPEB_LDR_DATA;
 
 typedef struct _LDR_MODULE {
     LIST_ENTRY InLoadOrderModuleList;
@@ -305,7 +305,7 @@ typedef struct _LDR_MODULE {
     SHORT TlsIndex;
     LIST_ENTRY HashTableEntry;
     ULONG TimeDateStamp;
-} LDR_MODULE, *PLDR_MODULE;
+} LDR_MODULE, * PLDR_MODULE;
 
 typedef struct _PEB {
     BOOLEAN InheritedAddressSpace;
@@ -319,13 +319,13 @@ typedef struct _PEB {
     PVOID   SubSystemData;
     PVOID   ProcessHeap;
     PVOID   FastPebLock;
-    void   *FastPebLockRoutine;
-    void   *FastPebUnlockRoutine;
+    void* FastPebLockRoutine;
+    void* FastPebUnlockRoutine;
     ULONG   EnvironmentUpdateCount;
     PPVOID  KernelCallbackTable;
     PVOID   EventLogSection;
     PVOID   EventLog;
-    void   *FreeList;
+    void* FreeList;
     ULONG   TlsExpansionCounter;
     PVOID   TlsBitmap;
     ULONG   TlsBitmapBits[0x2];
@@ -345,7 +345,7 @@ typedef struct _PEB {
     ULONG   HeapDeCommitFreeBlockThreshold;
     ULONG   NumberOfHeaps;
     ULONG   MaximumNumberOfHeaps;
-    PPVOID *ProcessHeaps;
+    PPVOID* ProcessHeaps;
     PVOID   GdiSharedHandleTable;
     PVOID   ProcessStarterHelper;
     PVOID   GdiDCAttributeList;
@@ -362,7 +362,7 @@ typedef struct _PEB {
     ULONG   TlsExpansionBitmap;
     BYTE    TlsExpansionBitmapBits[0x80];
     ULONG   SessionId;
-} PEB, *PPEB;
+} PEB, * PPEB;
 
 #if __x86_64__
 
@@ -400,9 +400,9 @@ static inline void writetls(uint32_t index, uintptr_t value)
 
 #endif
 
-static inline PEB *get_peb()
+static inline PEB* get_peb()
 {
-    return (PEB *) readtls(TLS_PEB);
+    return (PEB*)readtls(TLS_PEB);
 }
 
 typedef struct _SECTION_IMAGE_INFORMATION {
@@ -437,7 +437,7 @@ typedef struct _SECTION_IMAGE_INFORMATION {
     uint32_t            LoaderFlags;
     uint32_t            ImageFileSize;
     uint32_t            CheckSum;
-} SECTION_IMAGE_INFORMATION, *PSECTION_IMAGE_INFORMATION;
+} SECTION_IMAGE_INFORMATION, * PSECTION_IMAGE_INFORMATION;
 
 typedef struct _RTL_USER_PROCESS_INFORMATION {
     ULONG Size;
@@ -445,25 +445,25 @@ typedef struct _RTL_USER_PROCESS_INFORMATION {
     HANDLE ThreadHandle;
     CLIENT_ID ClientId;
     SECTION_IMAGE_INFORMATION ImageInformation;
-} RTL_USER_PROCESS_INFORMATION, *PRTL_USER_PROCESS_INFORMATION;
+} RTL_USER_PROCESS_INFORMATION, * PRTL_USER_PROCESS_INFORMATION;
 
 typedef struct _FILE_NAME_INFORMATION {
     ULONG FileNameLength;
     WCHAR FileName[1];
-} FILE_NAME_INFORMATION, *PFILE_NAME_INFORMATION;
+} FILE_NAME_INFORMATION, * PFILE_NAME_INFORMATION;
 
-typedef enum  {
-    FileFsVolumeInformation       = 1,
-    FileFsLabelInformation        = 2,
-    FileFsSizeInformation         = 3,
-    FileFsDeviceInformation       = 4,
-    FileFsAttributeInformation    = 5,
-    FileFsControlInformation      = 6,
-    FileFsFullSizeInformation     = 7,
-    FileFsObjectIdInformation     = 8,
-    FileFsDriverPathInformation   = 9,
-    FileFsVolumeFlagsInformation  = 10,
-    FileFsSectorSizeInformation   = 11
+typedef enum {
+    FileFsVolumeInformation = 1,
+    FileFsLabelInformation = 2,
+    FileFsSizeInformation = 3,
+    FileFsDeviceInformation = 4,
+    FileFsAttributeInformation = 5,
+    FileFsControlInformation = 6,
+    FileFsFullSizeInformation = 7,
+    FileFsObjectIdInformation = 8,
+    FileFsDriverPathInformation = 9,
+    FileFsVolumeFlagsInformation = 10,
+    FileFsSectorSizeInformation = 11
 } FS_INFORMATION_CLASS;
 
 typedef struct _FILE_FS_VOLUME_INFORMATION {
@@ -472,7 +472,7 @@ typedef struct _FILE_FS_VOLUME_INFORMATION {
     ULONG         VolumeLabelLength;
     BOOLEAN       SupportsObjects;
     WCHAR         VolumeLabel[1];
-} FILE_FS_VOLUME_INFORMATION, *PFILE_FS_VOLUME_INFORMATION;
+} FILE_FS_VOLUME_INFORMATION, * PFILE_FS_VOLUME_INFORMATION;
 
 /** typedef enum _FILE_INFO_BY_HANDLE_CLASS {
     FileBasicInfo                   = 0,
@@ -498,13 +498,13 @@ typedef struct _FILE_FS_VOLUME_INFORMATION {
     FileIdExtdDirectoryRestartInfo  = 20,
     MaximumFileInfoByHandlesClass
 } FILE_INFO_BY_HANDLE_CLASS, *PFILE_INFO_BY_HANDLE_CLASS;  (edited 22/10/2024) **/
-enum _FILE_INFO_BY_HANDLE_CLASS_2 {
-    FileStorageInfo                 = 16,
-    FileAlignmentInfo               = 17,
-    FileIdInfo                      = 18,
-    FileIdExtdDirectoryInfo         = 19,
-    FileIdExtdDirectoryRestartInfo  = 20
-};
+// enum _FILE_INFO_BY_HANDLE_CLASS_2 {
+//     FileStorageInfo                 = 16,
+//     FileAlignmentInfo               = 17,
+//     FileIdInfo                      = 18,
+//     FileIdExtdDirectoryInfo         = 19,
+//     FileIdExtdDirectoryRestartInfo  = 20
+// };
 
 typedef enum _SYSTEM_INFORMATION_CLASS {
     SystemBasicInformation = 0,
@@ -665,12 +665,12 @@ typedef enum _SYSTEM_INFORMATION_CLASS {
     SystemRegistryReconciliationInformation = 155,
     SystemEdidInformation = 156,
     MaxSystemInfoClass = 157
-} SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;
+} SYSTEM_INFORMATION_CLASS, * PSYSTEM_INFORMATION_CLASS;
 
 typedef struct _KEY_NAME_INFORMATION {
     ULONG NameLength;
     WCHAR Name[1];
-} KEY_NAME_INFORMATION, *PKEY_NAME_INFORMATION;
+} KEY_NAME_INFORMATION, * PKEY_NAME_INFORMATION;
 
 typedef enum _OBJECT_INFORMATION_CLASS {
     ObjectBasicInformation,
@@ -683,12 +683,12 @@ typedef enum _OBJECT_INFORMATION_CLASS {
 typedef struct _OBJECT_NAME_INFORMATION {
     UNICODE_STRING Name;
     WCHAR NameBuffer[1];
-} OBJECT_NAME_INFORMATION, *POBJECT_NAME_INFORMATION;
+} OBJECT_NAME_INFORMATION, * POBJECT_NAME_INFORMATION;
 
 typedef struct _FILE_PIPE_INFORMATION {
     ULONG ReadMode;
     ULONG CompletionMode;
-} FILE_PIPE_INFORMATION, *PFILE_PIPE_INFORMATION;
+} FILE_PIPE_INFORMATION, * PFILE_PIPE_INFORMATION;
 
 typedef struct _LDR_DLL_UNLOADED_NOTIFICATION_DATA {
     ULONG Flags;
@@ -696,7 +696,7 @@ typedef struct _LDR_DLL_UNLOADED_NOTIFICATION_DATA {
     PUNICODE_STRING BaseDllName;
     PVOID DllBase;
     ULONG SizeOfImage;
-} LDR_DLL_UNLOADED_NOTIFICATION_DATA, *PLDR_DLL_UNLOADED_NOTIFICATION_DATA;
+} LDR_DLL_UNLOADED_NOTIFICATION_DATA, * PLDR_DLL_UNLOADED_NOTIFICATION_DATA;
 
 typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA {
     ULONG Flags;
@@ -704,17 +704,17 @@ typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA {
     PUNICODE_STRING BaseDllName;
     PVOID DllBase;
     ULONG SizeOfImage;
-} LDR_DLL_LOADED_NOTIFICATION_DATA, *PLDR_DLL_LOADED_NOTIFICATION_DATA;
+} LDR_DLL_LOADED_NOTIFICATION_DATA, * PLDR_DLL_LOADED_NOTIFICATION_DATA;
 
 typedef union _LDR_DLL_NOTIFICATION_DATA {
     LDR_DLL_LOADED_NOTIFICATION_DATA Loaded;
     LDR_DLL_UNLOADED_NOTIFICATION_DATA Unloaded;
-} LDR_DLL_NOTIFICATION_DATA, *PLDR_DLL_NOTIFICATION_DATA;
+} LDR_DLL_NOTIFICATION_DATA, * PLDR_DLL_NOTIFICATION_DATA;
 
-typedef VOID (CALLBACK LDR_DLL_NOTIFICATION_FUNCTION)(
+typedef VOID(CALLBACK LDR_DLL_NOTIFICATION_FUNCTION)(
     ULONG NotificationReason,
-    const LDR_DLL_NOTIFICATION_DATA *NotificationData,
-    VOID *Context);
+    const LDR_DLL_NOTIFICATION_DATA* NotificationData,
+    VOID* Context);
 
 /* typedef enum _TASKDIALOG_COMMON_BUTTON_FLAGS {
     TDCBF_OK_BUTTON         = 0x0001,
@@ -729,7 +729,7 @@ typedef enum _SHUTDOWN_ACTION {
     ShutdownNoReboot,
     ShutdownReboot,
     ShutdownPowerOff
-} SHUTDOWN_ACTION, *PSHUTDOWN_ACTION;
+} SHUTDOWN_ACTION, * PSHUTDOWN_ACTION;
 
 #define InitializeObjectAttributes(p, n, a, r, s) { \
     (p)->Length = sizeof(OBJECT_ATTRIBUTES); \

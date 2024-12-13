@@ -68,23 +68,20 @@ LARGE_INTEGER start_time;
 
 APIDATA_SINGLE apidata_tosend;
 
-// --Move up--
-DWORD WINAPI sendRoutine(LPVOID lpParam);
-
 // --Functions--
-VOID fetchNTFunc(PVOID* ppvReal, const CHAR* psz, const WCHAR* lib) {
-    HMODULE hNtdll = LoadLibrary(lib);
+static VOID fetchNTFunc(PVOID* ppvReal, const CHAR* psz, const CHAR* lib) {
+    HMODULE hNtdll = GetModuleHandle("ntdll");
     *ppvReal = (PVOID)GetProcAddress(hNtdll, psz);
 }
 
 void setupComms() {
     InitializeCriticalSection(&hLock);
-    fetchNTFunc((PVOID*)&Real_NtOpenFile, "NtOpenFile", L"ntdll.dll");
-    fetchNTFunc((PVOID*)&Real_NtWriteFile, "NtWriteFile", L"ntdll.dll");
-    fetchNTFunc((PVOID*)&Real_NtClose, "NtClose", L"ntdll.dll");
-    fetchNTFunc((PVOID*)&Real_NtOpenEvent, "NtOpenEvent", L"ntdll.dll");
-    fetchNTFunc((PVOID*)&Real_NtSetEvent, "NtSetEvent", L"ntdll.dll");
-    fetchNTFunc((PVOID*)&Real_RtlInitUnicodeString, "RtlInitUnicodeString", L"ntdll.dll");
+    fetchNTFunc((PVOID*)&Real_NtOpenFile, "NtOpenFile", "ntdll");
+    fetchNTFunc((PVOID*)&Real_NtWriteFile, "NtWriteFile", "ntdll");
+    fetchNTFunc((PVOID*)&Real_NtClose, "NtClose", "ntdll");
+    fetchNTFunc((PVOID*)&Real_NtOpenEvent, "NtOpenEvent", "ntdll");
+    fetchNTFunc((PVOID*)&Real_NtSetEvent, "NtSetEvent", "ntdll");
+    fetchNTFunc((PVOID*)&Real_RtlInitUnicodeString, "RtlInitUnicodeString", "ntdll");
 
     // Init pipe
     Real_RtlInitUnicodeString(&pipeName, PIPE_NAME);

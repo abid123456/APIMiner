@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <windows.h>
 #include "bson.h"
 #include "native.h"
+#include "ipc.h"
 
 typedef struct raw_buf_t {
     uint8_t buf[1024];
@@ -31,30 +32,30 @@ typedef struct raw_buf_t {
 
 extern char g_apiminer_monitor_module_path[MAX_PATH];
 
-void log_init(const char *pipe_name, int track);
+void log_init(const char* pipe_name, int track);
 
-void log_apiminer_raw(uint8_t *buf, uint32_t len);
+void log_apiminer_raw(uint8_t* buf, uint32_t len);
 
 void log_api(uint32_t index, int is_success, uintptr_t return_value,
-    uint64_t hash, last_error_t *lasterr, ...);
+    uint64_t hash, last_error_t* lasterr, ...);
 
-void log_intptr(bson *b, const char *idx, intptr_t value);
-void log_string(bson *b, const char *idx, const char *str, int length);
-void log_wstring(bson *b, const char *idx, const wchar_t *str, int length);
+void log_intptr(bson* b, const char* idx, intptr_t value);
+void log_string(bson* b, const char* idx, const char* str, int length);
+void log_wstring(bson* b, const char* idx, const wchar_t* str, int length);
 
-void log_anomaly(const char *subcategory,
-    const char *funcname, const char *msg);
+void log_anomaly(const char* subcategory,
+    const char* funcname, const char* msg);
 
-void log_exception(CONTEXT *ctx, EXCEPTION_RECORD *rec,
-    uintptr_t *return_addresses, uint32_t count, uint32_t flags);
+void log_exception(CONTEXT* ctx, EXCEPTION_RECORD* rec,
+    uintptr_t* return_addresses, uint32_t count, uint32_t flags);
 
-void log_action(const char *action);
+void log_action(const char* action);
 void WINAPI log_guardrw(uintptr_t addr);
 
 void log_new_process();
-void WINAPI log_missing_hook(const char *funcname);
+void WINAPI log_missing_hook(const char* funcname);
 
-void log_debug(const char *fmt, ...);
+void log_debug(const char* fmt, ...);
 
 // Remove log_debug() in release mode altogether.
 #if DEBUG == 0
@@ -70,18 +71,18 @@ void log_debug(const char *fmt, ...);
 
 typedef struct _flag_repr_t {
     uint32_t value;
-    const char *repr;
+    const char* repr;
 } flag_repr_t;
 
-const char *sig_flag_name(uint32_t sigidx, uint32_t flagidx);
+const char* sig_flag_name(uint32_t sigidx, uint32_t flagidx);
 uint32_t sig_flag_value(uint32_t sigidx, uint32_t flagidx);
-const char *sig_apiname(uint32_t sigidx);
-const char *sig_category(uint32_t sigidx);
-const char *sig_paramtypes(uint32_t sigidx);
-const char *sig_param_name(uint32_t sigidx, uint32_t argidx);
+const char* sig_apiname(uint32_t sigidx);
+const char* sig_category(uint32_t sigidx);
+const char* sig_paramtypes(uint32_t sigidx);
+const char* sig_param_name(uint32_t sigidx, uint32_t argidx);
 uint32_t sig_count();
-const flag_repr_t *flag_value(uint32_t flagidx);
-const flag_repr_t *flag_bitmask(uint32_t flagidx);
+const flag_repr_t* flag_value(uint32_t flagidx);
+const flag_repr_t* flag_bitmask(uint32_t flagidx);
 
 uint32_t sig_index_process();
 uint32_t sig_index_anomaly();
@@ -90,5 +91,8 @@ uint32_t sig_index_missing();
 uint32_t sig_index_action();
 uint32_t sig_index_guardrw();
 uint32_t sig_index_firsthookidx();
+
+// Added 13/12/2024 ipc purposes
+extern APIDATA_SINGLE api_data;
 
 #endif

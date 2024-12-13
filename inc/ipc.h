@@ -16,4 +16,9 @@ typedef struct _APIDATA {
     uint32_t offset;
 } APIDATA;
 
+void setupComms();
+void sendData();
+DWORD WINAPI sendRoutine(LPVOID lpParam);
+void closeComms();
+
 #endif

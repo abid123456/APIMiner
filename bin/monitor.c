@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sleep.h"
 #include "symbol.h"
 #include "unhook.h"
+#include "ipc.h"
 
 void monitor_init(HMODULE module_handle)
 {
@@ -71,7 +72,7 @@ void monitor_init(HMODULE module_handle)
 
     hide_module_from_peb(module_handle);
 
-    if(cfg.disguise != 0) {
+    if (cfg.disguise != 0) {
         // Set the processor count to two.
         set_processor_count(2);
 
@@ -88,20 +89,20 @@ void monitor_init(HMODULE module_handle)
     misc_set_monitor_options(cfg.track, cfg.mode, cfg.trigger);
 }
 
-void monitor_hook(const char *library, void *module_handle)
+void monitor_hook(const char* library, void* module_handle)
 {
     // Initialize data about each hook.
-    for (hook_t *h = sig_hooks(); h->funcname != NULL; h++) {
+    for (hook_t* h = sig_hooks(); h->funcname != NULL; h++) {
         // If a specific library has been specified then we skip all other
         // libraries. This feature is used in the special hook for LdrLoadDll.
-        if(library != NULL && stricmp(h->library, library) != 0) {
+        if (library != NULL && stricmp(h->library, library) != 0) {
             continue;
         }
 
         // We only hook this function if the monitor mode is "hook everything"
         // or if the monitor mode matches the mode of this hook.
-        if(g_monitor_mode != HOOK_MODE_ALL &&
-                (g_monitor_mode & h->mode) == 0) {
+        if (g_monitor_mode != HOOK_MODE_ALL &&
+            (g_monitor_mode & h->mode) == 0) {
             continue;
         }
 
@@ -114,13 +115,13 @@ void monitor_hook(const char *library, void *module_handle)
     }
 }
 
-void monitor_unhook(const char *library, void *module_handle)
+void monitor_unhook(const char* library, void* module_handle)
 {
-    (void) library;
+    (void)library;
 
-    for (hook_t *h = sig_hooks(); h->funcname != NULL; h++) {
+    for (hook_t* h = sig_hooks(); h->funcname != NULL; h++) {
         // This module was unloaded.
-        if(h->module_handle == module_handle) {
+        if (h->module_handle == module_handle) {
             h->is_hooked = 0;
             h->addr = NULL;
         }
@@ -128,7 +129,7 @@ void monitor_unhook(const char *library, void *module_handle)
         // This is a hooked function which doesn't belong to a particular DLL.
         // Therefore the module handle is a nullptr and we simply check
         // whether the address of the original function is still in-memory.
-        if(h->module_handle == NULL && range_is_readable(h->addr, 16) == 0) {
+        if (h->module_handle == NULL && range_is_readable(h->addr, 16) == 0) {
             h->is_hooked = 0;
             h->addr = NULL;
         }
@@ -137,15 +138,22 @@ void monitor_unhook(const char *library, void *module_handle)
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-    (void) hModule; (void) lpReserved;
+    (void)hModule; (void)lpReserved;
 
-    if(dwReason == DLL_PROCESS_ATTACH && is_ignored_process() == 0) {
+    if (dwReason == DLL_PROCESS_ATTACH && is_ignored_process() == 0) {
         GetModuleFileNameA(hModule, g_apiminer_monitor_module_path, sizeof(g_apiminer_monitor_module_path));
         GetLongPathNameA(g_apiminer_monitor_module_path, g_apiminer_monitor_module_path, sizeof(g_apiminer_monitor_module_path));
+
+        setupComms();
 
         monitor_init(hModule);
         monitor_hook(NULL, NULL);
         pipe("LOADED:%d,%d", get_current_process_id(), g_monitor_track);
+        setupCompleted = TRUE;
+    }
+    else if (dwReason == DLL_PROCESS_DETACH) {
+        closeComms();
+        return TRUE;
     }
 
     return TRUE;
